@@ -8,7 +8,7 @@
 
 Name:		%{name}
 Version:	%{version}
-Release:	%mkrel 4.4
+Release:	%mkrel 4.5
 Epoch:		0
 Summary:	Jakarta Commons BeanUtils Package
 License:	Apache License
@@ -29,8 +29,6 @@ Obsoletes:	%{short_name}
 # libgcj aot-compiled native libraries
 %if %{gcj_support}
 BuildRequires:    java-gcj-compat-devel
-Requires(post):   java-gcj-compat
-Requires(postun): java-gcj-compat
 %else
 BuildArch:	noarch
 %endif
