@@ -8,7 +8,7 @@
 
 Name:		%{name}
 Version:	%{version}
-Release:	%mkrel 6.0.1
+Release:	%mkrel 6.0.2
 Epoch:		0
 Summary:	Jakarta Commons BeanUtils Package
 License:	Apache License
@@ -36,7 +36,7 @@ Url:		http://jakarta.apache.org/commons/%{base_name}/
 BuildRequires:	ant
 BuildRequires:	jakarta-commons-collections >= 0:2.0
 BuildRequires:	jakarta-commons-logging >= 0:1.0
-BuildRequires:	jpackage-utils > 0:1.5
+BuildRequires:	java-rpmbuild > 0:1.5
 Requires:	jakarta-commons-collections >= 0:2.0
 Requires:	jakarta-commons-logging >= 0:1.0
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
