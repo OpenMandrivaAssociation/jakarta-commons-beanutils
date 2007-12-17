@@ -39,7 +39,6 @@ BuildRequires:	jakarta-commons-logging >= 0:1.0
 BuildRequires:	java-rpmbuild > 0:1.5
 Requires:	jakarta-commons-collections >= 0:2.0
 Requires:	jakarta-commons-logging >= 0:1.0
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Provides:	%{short_name}
 Obsoletes:	%{short_name}
 # libgcj aot-compiled native libraries
