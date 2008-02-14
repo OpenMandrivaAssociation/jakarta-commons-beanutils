@@ -13,6 +13,7 @@ Epoch:		0
 Summary:	Jakarta Commons BeanUtils Package
 License:	Apache License
 Group:		Development/Java
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 #Vendor:         JPackage Project
 #Distribution:   JPackage
 Source0:	http://www.apache.org/dist/jakarta/commons/beanutils/source/commons-beanutils-1.7.0-src.tar.bz2
