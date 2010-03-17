@@ -8,7 +8,7 @@
 
 Name:		%{name}
 Version:	%{version}
-Release:	%mkrel 6.0.4
+Release:	%mkrel 6.0.5
 Epoch:		0
 Summary:	Jakarta Commons BeanUtils Package
 License:	Apache License
