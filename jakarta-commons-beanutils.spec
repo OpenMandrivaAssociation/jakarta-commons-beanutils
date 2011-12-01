@@ -80,38 +80,38 @@ export CLASSPATH=$(build-classpath commons-collections commons-logging)
 %ant -Dbuild.sysclasspath=first dist
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 # jars
-install -d -m 755 $RPM_BUILD_ROOT%{_javadir}
-install -m 644 dist/%{short_name}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version}.jar
-install -m 644 dist/%{short_name}-core.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-core-%{version}.jar
-install -m 644 dist/%{short_name}-bean-collections.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-bean-collections-%{version}.jar
-(cd $RPM_BUILD_ROOT%{_javadir} && for jar in *-%{version}*; do ln -sf ${jar} `echo $jar| sed  "s|jakarta-||g"`; done)
-(cd $RPM_BUILD_ROOT%{_javadir} && for jar in *-%{version}*; do ln -sf ${jar} `echo $jar| sed  "s|-%{version}||g"`; done)
+install -d -m 755 %{buildroot}%{_javadir}
+install -m 644 dist/%{short_name}.jar %{buildroot}%{_javadir}/%{name}-%{version}.jar
+install -m 644 dist/%{short_name}-core.jar %{buildroot}%{_javadir}/%{name}-core-%{version}.jar
+install -m 644 dist/%{short_name}-bean-collections.jar %{buildroot}%{_javadir}/%{name}-bean-collections-%{version}.jar
+(cd %{buildroot}%{_javadir} && for jar in *-%{version}*; do ln -sf ${jar} `echo $jar| sed  "s|jakarta-||g"`; done)
+(cd %{buildroot}%{_javadir} && for jar in *-%{version}*; do ln -sf ${jar} `echo $jar| sed  "s|-%{version}||g"`; done)
 
 %add_to_maven_depmap %{short_name} %{short_name} %{version} JPP %{short_name}
 %add_to_maven_depmap %{short_name} %{short_name}-core %{version} JPP %{short_name}-core
 %add_to_maven_depmap %{short_name} %{short_name}-bean-collections %{version} JPP %{short_name}-bean-collections
 
-install -d -m 755 $RPM_BUILD_ROOT%{_datadir}/maven2/poms
+install -d -m 755 %{buildroot}%{_datadir}/maven2/poms
 install -pm 644 %{SOURCE5} \
-    $RPM_BUILD_ROOT%{_datadir}/maven2/poms/JPP-%{short_name}.pom
+    %{buildroot}%{_datadir}/maven2/poms/JPP-%{short_name}.pom
 install -pm 644 %{SOURCE6} \
-    $RPM_BUILD_ROOT%{_datadir}/maven2/poms/JPP-%{short_name}-bean-collections.pom
+    %{buildroot}%{_datadir}/maven2/poms/JPP-%{short_name}-bean-collections.pom
 install -pm 644 %{SOURCE7} \
-    $RPM_BUILD_ROOT%{_datadir}/maven2/poms/JPP-%{short_name}-core.pom
+    %{buildroot}%{_datadir}/maven2/poms/JPP-%{short_name}-core.pom
 
 
 # javadoc
-install -d -m 755 $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
-cp -pr dist/docs/api/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
+install -d -m 755 %{buildroot}%{_javadocdir}/%{name}-%{version}
+cp -pr dist/docs/api/* %{buildroot}%{_javadocdir}/%{name}-%{version}
 
 %if %{gcj_support}
 %{_bindir}/aot-compile-rpm
 %endif
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 
 %post
