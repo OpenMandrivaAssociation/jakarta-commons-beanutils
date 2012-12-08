@@ -2,18 +2,14 @@
 %define gcj_support	1
 %define base_name	beanutils
 %define short_name	commons-%{base_name}
-%define name		jakarta-%{short_name}
-%define version		1.7.0
-%define	section		free
 
-Name:		%{name}
-Version:	%{version}
-Release:	%mkrel 6.0.7
+Name:		jakarta-%{short_name}
+Version:	1.7.0
+Release:	6.0.9
 Epoch:		0
 Summary:	Jakarta Commons BeanUtils Package
 License:	Apache License
 Group:		Development/Java
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 #Vendor:         JPackage Project
 #Distribution:   JPackage
 Source0:	http://www.apache.org/dist/jakarta/commons/beanutils/source/commons-beanutils-1.7.0-src.tar.bz2
@@ -35,6 +31,7 @@ Patch3:         commons-beanutils-1.7.0-navigation_xml.patch
 Patch4:         commons-beanutils-1.7.0-project_properties.patch
 Url:		http://jakarta.apache.org/commons/%{base_name}/
 BuildRequires:	ant
+BuildRequires:	locales-en
 BuildRequires:	jakarta-commons-collections >= 0:2.0
 BuildRequires:	jakarta-commons-logging >= 0:1.0
 BuildRequires:	java-rpmbuild > 0:1.5
@@ -69,50 +66,46 @@ cp %{SOURCE9} maven.xml
 cp %{SOURCE10} build-other-jars.xml
 %remove_java_binaries
 %patch0 -b .sav
-%patch1 -b .sav
-%patch2 -b .sav
-%patch3 -b .sav
+%patch1 -p0 -b .sav
+%patch2 -p0 -b .sav
+%patch3 -p0 -b .sav
 %patch4 -b .sav
 
 
 %build
+export LC_ALL=ISO-8859-1
 export CLASSPATH=$(build-classpath commons-collections commons-logging)
 %ant -Dbuild.sysclasspath=first dist
 
 %install
-rm -rf %{buildroot}
 # jars
-install -d -m 755 %{buildroot}%{_javadir}
-install -m 644 dist/%{short_name}.jar %{buildroot}%{_javadir}/%{name}-%{version}.jar
-install -m 644 dist/%{short_name}-core.jar %{buildroot}%{_javadir}/%{name}-core-%{version}.jar
-install -m 644 dist/%{short_name}-bean-collections.jar %{buildroot}%{_javadir}/%{name}-bean-collections-%{version}.jar
-(cd %{buildroot}%{_javadir} && for jar in *-%{version}*; do ln -sf ${jar} `echo $jar| sed  "s|jakarta-||g"`; done)
-(cd %{buildroot}%{_javadir} && for jar in *-%{version}*; do ln -sf ${jar} `echo $jar| sed  "s|-%{version}||g"`; done)
+install -d -m 755 $RPM_BUILD_ROOT%{_javadir}
+install -m 644 dist/%{short_name}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version}.jar
+install -m 644 dist/%{short_name}-core.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-core-%{version}.jar
+install -m 644 dist/%{short_name}-bean-collections.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-bean-collections-%{version}.jar
+(cd $RPM_BUILD_ROOT%{_javadir} && for jar in *-%{version}*; do ln -sf ${jar} `echo $jar| sed  "s|jakarta-||g"`; done)
+(cd $RPM_BUILD_ROOT%{_javadir} && for jar in *-%{version}*; do ln -sf ${jar} `echo $jar| sed  "s|-%{version}||g"`; done)
 
 %add_to_maven_depmap %{short_name} %{short_name} %{version} JPP %{short_name}
 %add_to_maven_depmap %{short_name} %{short_name}-core %{version} JPP %{short_name}-core
 %add_to_maven_depmap %{short_name} %{short_name}-bean-collections %{version} JPP %{short_name}-bean-collections
 
-install -d -m 755 %{buildroot}%{_datadir}/maven2/poms
+install -d -m 755 $RPM_BUILD_ROOT%{_datadir}/maven2/poms
 install -pm 644 %{SOURCE5} \
-    %{buildroot}%{_datadir}/maven2/poms/JPP-%{short_name}.pom
+    $RPM_BUILD_ROOT%{_datadir}/maven2/poms/JPP-%{short_name}.pom
 install -pm 644 %{SOURCE6} \
-    %{buildroot}%{_datadir}/maven2/poms/JPP-%{short_name}-bean-collections.pom
+    $RPM_BUILD_ROOT%{_datadir}/maven2/poms/JPP-%{short_name}-bean-collections.pom
 install -pm 644 %{SOURCE7} \
-    %{buildroot}%{_datadir}/maven2/poms/JPP-%{short_name}-core.pom
+    $RPM_BUILD_ROOT%{_datadir}/maven2/poms/JPP-%{short_name}-core.pom
 
 
 # javadoc
-install -d -m 755 %{buildroot}%{_javadocdir}/%{name}-%{version}
-cp -pr dist/docs/api/* %{buildroot}%{_javadocdir}/%{name}-%{version}
+install -d -m 755 $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
+cp -pr dist/docs/api/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
 
 %if %{gcj_support}
 %{_bindir}/aot-compile-rpm
 %endif
-
-%clean
-rm -rf %{buildroot}
-
 
 %post
 %update_maven_depmap
@@ -141,4 +134,85 @@ rm -rf %{buildroot}
 %defattr(0644,root,root,0755)
 %{_javadocdir}/%{name}-%{version}
 
+
+
+
+%changelog
+* Fri Dec 03 2010 Oden Eriksson <oeriksson@mandriva.com> 0:1.7.0-6.0.6mdv2011.0
++ Revision: 606046
+- rebuild
+
+* Wed Mar 17 2010 Oden Eriksson <oeriksson@mandriva.com> 0:1.7.0-6.0.5mdv2010.1
++ Revision: 522926
+- rebuilt for 2010.1
+
+* Wed Sep 02 2009 Christophe Fergeau <cfergeau@mandriva.com> 0:1.7.0-6.0.4mdv2010.0
++ Revision: 425394
+- rebuild
+
+* Sat Mar 07 2009 Antoine Ginies <aginies@mandriva.com> 0:1.7.0-6.0.3mdv2009.1
++ Revision: 351266
+- rebuild
+
+* Thu Feb 14 2008 Thierry Vignaud <tv@mandriva.org> 0:1.7.0-6.0.2mdv2009.0
++ Revision: 167932
+- fix no-buildroot-tag
+- kill re-definition of %%buildroot on Pixel's request
+
+* Sun Dec 16 2007 Anssi Hannula <anssi@mandriva.org> 0:1.7.0-6.0.2mdv2008.1
++ Revision: 120900
+- buildrequire java-rpmbuild, i.e. build with icedtea on x86(_64)
+
+* Mon Dec 10 2007 Alexander Kurtakov <akurtakov@mandriva.org> 0:1.7.0-6.0.1mdv2008.1
++ Revision: 116860
+- add maven poms (jpp sync)
+
+* Sat Sep 15 2007 Anssi Hannula <anssi@mandriva.org> 0:1.7.0-4.5mdv2008.0
++ Revision: 87398
+- rebuild to filter out autorequires of GCJ AOT objects
+- remove unnecessary Requires(post) on java-gcj-compat
+
+* Sun Sep 09 2007 Pascal Terjan <pterjan@mandriva.org> 0:1.7.0-4.4mdv2008.0
++ Revision: 82887
+- rebuild
+
+
+* Wed Mar 14 2007 Christiaan Welvaart <spturtle@mandriva.org> 1.7.0-4.3mdv2007.1
++ Revision: 143901
+- rebuild for 2007.1
+- Import jakarta-commons-beanutils
+
+* Fri Aug 04 2006 David Walluck <walluck@mandriva.org> 0:1.7.0-4.2mdv2007.0
+- bump release to allow upload
+
+* Sun Jul 23 2006 David Walluck <walluck@mandriva.org> 0:1.7.0-4.1mdv2007.0
+- bump release
+
+* Sun Jun 11 2006 David Walluck <walluck@mandriva.org> 0:1.7.0-3.0.1mdv2007.0
+- bump release to supercede jpp, even though we don't use maven
+- don't always build as noarch
+
+* Fri Jun 02 2006 David Walluck <walluck@mandriva.org> 0:1.7.0-2.2.3mdv2006.0
+- rebuild for libgcj.so.7
+
+* Fri Jan 13 2006 David Walluck <walluck@mandriva.org> 0:1.7.0-2.2.2mdk
+- quiet %%setup
+
+* Wed Oct 26 2005 David Walluck <walluck@mandriva.org> 0:1.7.0-2.2.1mdk
+- natify
+
+* Fri May 20 2005 David Walluck <walluck@mandriva.org> 0:1.7.0-2.1mdk
+- release
+
+* Fri May 20 2005 David Walluck <walluck@mandriva.org> 0:1.7.0-2.1mdk
+- release
+
+* Sat Jan 29 2005 Ralph Apel <r.apel@r-apel.de> - 0:1.7.0-2jpp
+- Use the "dist" target to get a full build, including bean-collections
+
+* Fri Oct 22 2004 Fernando Nasser <fnasser@redhat.com> - 0:1.7.0-1jpp
+- Upgrade to 1.7.0
+
+* Tue Aug 24 2004 Randy Watler <rwatler at finali.com> - 0:1.6.1-5jpp
+- Rebuild with ant-1.6.2
 

@@ -1,12 +1,3 @@
 sources:
-  "commons-beanutils-1.7.0-jpp-depmap.xml:"	e8529b33c31877674e121c8229d19db383330ff3
-  "commons-beanutils-1.7.0.pom:"	19eca029edacc1be30030faf43ea6acb30556d1a
-  "commons-beanutils-1.7.0-src.tar.bz2:"	99ca2b51fa75cdc0e9dd320826a2553b55cdbba3
-  "commons-beanutils-bean-collections-1.7.0.pom:"	fad491cd44ad0184c86cf8b106318a096239e141
-  "commons-beanutils-build-other-jars.xml:"	b76029343b3f7333bd1f46d4332b2c514627698b
-  "commons-beanutils-core-1.7.0.pom:"	4deeb82aa95d06c6e25fe3d064c654efec791a47
-  "commons-beanutils-maven.xml:"	e2083adc231fb3bae7246a8db710b455f7ddd75f
-  "commons-build.tar.gz:"	a66dba4b254b55eb7d29c40af3b925f907b092bf
-  "pom-maven2jpp-depcat.xsl:"	5861cae5f65e559ece90a7342d182f5a534b65de
-  "pom-maven2jpp-mapdeps.xsl:"	a837c6d38ea6fb127ba5bf20d917c1e8af791120
-  "pom-maven2jpp-newdepmap.xsl:"	834413ffc7f650705ce65ca2c89100153142cd92
+  "commons-beanutils-1.7.0-src.tar.bz2": 99ca2b51fa75cdc0e9dd320826a2553b55cdbba3
+  "commons-build.tar.gz": a66dba4b254b55eb7d29c40af3b925f907b092bf
