@@ -29,7 +29,7 @@ Patch1:         commons-beanutils-1.7.0-BeanificationTestCase.patch
 Patch2:         commons-beanutils-1.7.0-LocaleBeanificationTestCase.patch
 Patch3:         commons-beanutils-1.7.0-navigation_xml.patch
 Patch4:         commons-beanutils-1.7.0-project_properties.patch
-Url:		http://jakarta.apache.org/commons/%{base_name}/
+Url:		https://jakarta.apache.org/commons/%{base_name}/
 BuildRequires:	ant
 BuildRequires:	locales-en
 BuildRequires:	jakarta-commons-collections >= 0:2.0
